@@ -59,13 +59,16 @@ void GraphicManager::render(){
     for(auto i = texts.begin(); i != texts.end(); i++){
         pQuadRenderer->queueText(*i);
     }
+
     for(auto i = quads.begin(); i != quads.end(); i++){
         pQuadRenderer->queueQuad(*i);
     }
+
     for(auto i = particleSystems.begin(); i != particleSystems.end(); i++)
         pQuadRenderer->queueParticles(*i);
-    
+
     pQuadRenderer->render();
 
     Window::refresh();
+
 }

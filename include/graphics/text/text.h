@@ -11,6 +11,7 @@ class Text{
         Font* font;
         std::vector<Image> characters;
         vec2f pos;
+        vec2f size;
         vec2f cursor;
         vec4f color;
         float layer;
@@ -45,5 +46,9 @@ class Text{
 
         void setColor(vec4f colorRGBA);
         void setLayer(float layer);
+
+        inline const vec2f& getSize() const{
+            return size;
+        }
 
 };

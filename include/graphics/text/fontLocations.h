@@ -6,7 +6,7 @@
 enum FontLocation{
 
     NO_FONT_LOCATION,
-    TEST_FONT1_LOCATION,
+    MENU_FONT,
 
     NUMBER_OF_FONTS
 };

@@ -1,7 +1,10 @@
 #pragma once
 
-enum CollidableType{
+enum class CollidableType{
     defaultType = 0,
+    Brick,
+    Ball,
+    Paddle,
     testSprite,
     testImage
 };

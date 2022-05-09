@@ -2,22 +2,59 @@ cmake_minimum_required(VERSION 3.16)
 
 project(game)
 
+include(ExternalProject)
+
 set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB_RECURSE SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/*.cpp")
 
-add_executable(game ${SOURCES})
-
 include_directories(include)
 include_directories(include/graphics/text)
+
+ExternalProject_Add(glfw
+	GIT_REPOSITORY https://github.com/glfw/glfw.git 
+	PREFIX ./glfw 
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./glfw
+	-DGLFW_BUILD_EXAMPLES=OFF
+	-DGLFW_BUILD_TESTS=OFF
+	-DGLFW_BUILD_DOCS=OFF
+	-DBUILD_SHARED_LIBS=OFF
+)
+
+ExternalProject_Add(openal
+	GIT_REPOSITORY https://github.com/kcat/openal-soft.git
+	PREFIX ./openal
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./openal
+)
+
+ExternalProject_Add(libsndfile
+	GIT_REPOSITORY https://github.com/libsndfile/libsndfile.git
+	PREFIX ./libsndfile
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./libsndfile
+)
+
+ExternalProject_Add(freetype
+	GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
+	PREFIX ./freetype
+	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./freetype
+)
+
+
+
+add_executable(game ${SOURCES})
 
 set_target_properties(game PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 if(WIN32)
-	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/lib/libglfw3dll.a)
-	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/lib/libfreetype.a)
-	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/lib/libOpenAL32.dll.a)
-	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/lib/libsndfile-1.lib)
+	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/build/glfw/src/glfw-build/src/libglfw3.a)
+
+	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/build/freetype/src/freetype-build/libfreetype.a)
+
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build/openal/src/openal-build/OpenAL32.dll ${CMAKE_CURRENT_SOURCE_DIR}/bin COPYONLY)
+	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/build/openal/src/openal-build/libOpenAL32.dll.a)
+
+
+	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/build/libsndfile/src/libsndfile-build/libsndfile.a)
 	
 endif()
 
