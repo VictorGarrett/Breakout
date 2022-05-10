@@ -50,7 +50,11 @@ if(WIN32)
 
 	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/build/freetype/src/freetype-build/libfreetype.a)
 
-	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build/openal/src/openal-build/OpenAL32.dll ${CMAKE_CURRENT_SOURCE_DIR}/bin COPYONLY)
+	add_custom_command(
+        TARGET ${PROJECT_NAME}  POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+                ${CMAKE_CURRENT_SOURCE_DIR}/build/openal/src/openal-build/OpenAL32.dll
+                ${CMAKE_CURRENT_SOURCE_DIR}/bin/OpenAL32.dll)
 	target_link_libraries(game ${CMAKE_CURRENT_SOURCE_DIR}/build/openal/src/openal-build/libOpenAL32.dll.a)
 
 
