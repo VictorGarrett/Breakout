@@ -19,12 +19,14 @@ ExternalProject_Add(glfw
 	-DGLFW_BUILD_TESTS=OFF
 	-DGLFW_BUILD_DOCS=OFF
 	-DBUILD_SHARED_LIBS=OFF
+	UPDATE_COMMAND ""
 )
 
 ExternalProject_Add(openal
 	GIT_REPOSITORY https://github.com/kcat/openal-soft.git
 	PREFIX ./openal
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./openal
+	UPDATE_COMMAND ""
 )
 
 ExternalProject_Add(libsndfile
@@ -32,6 +34,7 @@ ExternalProject_Add(libsndfile
 	PREFIX ./libsndfile
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./libsndfile
 	-DBUILD_TESTING=OFF
+	UPDATE_COMMAND ""
 )
 
 ExternalProject_Add(freetype
@@ -39,6 +42,7 @@ ExternalProject_Add(freetype
 	PREFIX ./freetype
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=./freetype
 	-DBUILD_SHARED_LIBS=ON
+	UPDATE_COMMAND ""
 )
 
 

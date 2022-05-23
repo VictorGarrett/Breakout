@@ -52,7 +52,7 @@ void ShaderProgram::addShaderFromFile(const char* path){
         else
             printf("ERROR. could not open shader file.\n");
 
-        glShaderSource(newShaderID, 1, &shaderSource, NULL);
+        glShaderSource(newShaderID, 1, &shaderSource, nullptr);
         glCompileShader(newShaderID);
 
         //compile status check
@@ -61,7 +61,7 @@ void ShaderProgram::addShaderFromFile(const char* path){
         glGetShaderiv(newShaderID, GL_COMPILE_STATUS, &success);
 
         if(!success){
-            glGetShaderInfoLog(newShaderID, 512, NULL, log);
+            glGetShaderInfoLog(newShaderID, 512, nullptr, log);
             printf("ERROR. Could not compile shader: %s\n", log);
         }
 
@@ -82,7 +82,7 @@ void ShaderProgram::link(){
     glLinkProgram(id);
     glGetProgramiv(id, GL_LINK_STATUS, &success);
     if(!success){
-        glGetProgramInfoLog(id, 512, NULL, log);
+        glGetProgramInfoLog(id, 512, nullptr, log);
         printf("ERROR. Could not link shader: %s\n", log);
     }
     

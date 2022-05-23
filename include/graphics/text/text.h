@@ -17,6 +17,7 @@ class Text{
         float layer;
         int index;
         float lineSpacing;
+        bool visible;
 
 
     public:
@@ -40,6 +41,14 @@ class Text{
 
         Image* getNextCharacter();
         void resetIterator();
+
+        inline void setVisible(bool visible){
+            this->visible = visible;
+        }
+
+        inline bool getVisible() const{
+            return visible;
+        }
 
         void setPosition(vec2f pos);
         void move(vec2f delta);

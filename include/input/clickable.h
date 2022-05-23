@@ -11,6 +11,8 @@ class Clickable{
         bool hovering;
         unsigned int clicked;
 
+        bool enabled;
+
     public:
         Clickable(const vec2f& pos = {0.0f, 0.0f}, const vec2f& size = {0.0f, 0.0f});
         ~Clickable();
@@ -56,6 +58,14 @@ class Clickable{
             return size;
         }
         //void hover();
+
+        inline void setEnabled(bool enabled){
+            this->enabled = enabled;
+        }
+
+        inline bool getEnabled(){
+            return enabled;
+        }
         
 
         friend class EventsManager;

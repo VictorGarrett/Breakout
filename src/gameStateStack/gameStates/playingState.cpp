@@ -1,8 +1,8 @@
-#include "gameStateMachine/gameStates/PlayingState.h"
-#include "gameStateMachine/gameStateMachine.h"
+#include "gameStateStack/gameStates/PlayingState.h"
+#include "gameStateStack/gameStateStack.h"
 #include "sound/soundManager.h"
 
-PlayingState::PlayingState(StateMachine* stateMachine): State(stateMachine){
+PlayingState::PlayingState(StateStack* stateStack): StateStack::State(stateStack){
 
 }
 
@@ -10,7 +10,12 @@ PlayingState::~PlayingState(){
 
 }
 
-void PlayingState::enter(int from){
+void PlayingState::enter(){
+
+    if(GameContainer::playButton){
+        GameContainer::playButton->setVisible(false);
+        GameContainer::playButton->setEnabled(false);
+    }
 
     SoundManager::loadSound(SoundLocation::BRICK_BREAK_SOUND);
 
@@ -26,7 +31,7 @@ void PlayingState::enter(int from){
      
 }
 
-void PlayingState::exit(int to){
+void PlayingState::exit(){
     delete GameContainer::bricks;
     GameContainer::bricks = nullptr;
 
@@ -36,13 +41,17 @@ void PlayingState::exit(int to){
     delete GameContainer::paddle;
     GameContainer::paddle = nullptr;
 
+    if(GameContainer::playButton){
+        GameContainer::playButton->setVisible(true);
+        GameContainer::playButton->setEnabled(true);
+    }
+
     TextureManager::unloadTexture(TextureLocation::MAIN_ATLAS);
     TextureManager::unloadTexture(TextureLocation::SHARD);
     SoundManager::unloadSound(SoundLocation::BRICK_BREAK_SOUND);
 }   
 
 void PlayingState::update(){
-
     CollisionManager::pollAllCollisions();
 
     GameContainer::bricks->update();
@@ -50,11 +59,11 @@ void PlayingState::update(){
     GameContainer::paddle->update();
 
     if(!GameContainer::ball->isAlive()){
-        stateMachine->changeState(MainMenuStateID);
+        stateStack->pop();
         return;
     }
     if(!GameContainer::bricks->getBrickCount()){
-        stateMachine->changeState(MainMenuStateID);
+        stateStack->pop();
         return;
     }
 }

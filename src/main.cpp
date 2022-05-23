@@ -10,7 +10,7 @@
 #include "sound/soundManager.h"
 #include "graphics/graphicManager.h"
 #include "physics/collisionManager.h"
-#include "gameStateMachine/gameStateMachine.h"
+#include "gameStateStack/gameStateStack.h"
 
 #include <string>
 
@@ -25,16 +25,16 @@ int main(){
     SoundManager::init();
 
 
-    GameStateMachine* gameStateMachine = new GameStateMachine;
+    GameStateStack* gameStateStack = new GameStateStack;
 
-    
+    gameStateStack->push(static_cast<StateStack::State*>(new MainMenuState(gameStateStack)));
 
 
     // render loop
     // -----------
     while (!GraphicManager::getWindowShouldClose()){
         
-        gameStateMachine->update();
+        gameStateStack->update();
         GraphicManager::render();
         // swap buffers and poll IO events
         // -------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ int main(){
 
     }
     
-    delete gameStateMachine;
+    delete gameStateStack;
     
     //terminating managers
     SoundManager::terminate();

@@ -9,6 +9,7 @@ Text::Text(){
     font = nullptr;
     lineSpacing = 0;
     layer = 0;
+    visible = true;
     GraphicManager::addText(this);
 }
 

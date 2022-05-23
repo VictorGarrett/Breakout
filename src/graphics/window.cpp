@@ -28,7 +28,7 @@ void Window::createWindow(unsigned int screenWidth, unsigned int screenHeight, c
     #endif
 
     windowHandle = nullptr;
-    windowHandle = glfwCreateWindow(windowWidth, windowHeight, name, NULL, NULL);
+    windowHandle = glfwCreateWindow(windowWidth, windowHeight, name, nullptr, nullptr);
     if (windowHandle == nullptr){
         std::cout << "Failed to create GLFW window" << std::endl;
         return;

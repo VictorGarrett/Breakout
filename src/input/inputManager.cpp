@@ -76,6 +76,9 @@ void InputManager::pollEvents(){
     mousePos = {2*mouseX/Window::getWindowWidth()-1, -2*mouseY/Window::getWindowHeight()+1};
 
     for(auto i = clickables.begin(); i != clickables.end(); i++){
+        if(!(*i)->getEnabled())
+            continue;
+            
         vec2f pos = (*i)->getPosition();
         vec2f size = (*i)->getSize();
         vec2f worldMousePos = getMousePosWorld(clickablesView);

@@ -2,9 +2,32 @@
 
 #include <vector>
 
-class State;
-
 class StateMachine{
+
+public: 
+    class State{
+
+        protected:
+            StateMachine* stateMachine;
+
+        public:
+            State(StateMachine* stateMachine = nullptr){
+                setStateMachine(stateMachine);
+            }
+            virtual ~State(){
+                
+            }
+
+            virtual void enter(int from){}
+            virtual void exit(int to){}
+
+            virtual void update() = 0;
+
+            inline void setStateMachine(StateMachine* stateMachine){
+                this->stateMachine = stateMachine;
+            }
+
+    };
 
 protected:
     std::vector<State*> states;

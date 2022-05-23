@@ -20,7 +20,7 @@ Renderer::Renderer(const View& view):rendererShader(), rendererView(view){
     //vertex buffer setup
     glGenBuffers(1, &rendererVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, rendererVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, nullptr, GL_DYNAMIC_DRAW);
 
 
     //index buffer setup

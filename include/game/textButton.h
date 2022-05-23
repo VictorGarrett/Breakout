@@ -26,4 +26,12 @@ class TextButton{
         inline bool wasClicked(MouseButtons button){
             return clickBox.wasClicked(button);
         }
+
+        inline void setVisible(bool visible){
+            content.setVisible(visible);
+        }
+
+        inline void setEnabled(bool enabled){
+            clickBox.setEnabled(enabled);
+        }
 };

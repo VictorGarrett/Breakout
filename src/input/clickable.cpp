@@ -4,6 +4,7 @@ Clickable::Clickable(const vec2f& pos, const vec2f& size){
     setClickBox(pos, size);
     hovering = false;
     clicked = false;
+    enabled = true;
     InputManager::addClickable(this);
 }
 
